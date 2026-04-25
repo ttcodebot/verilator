@@ -22,6 +22,9 @@
 #include "V3OptionParser.h"
 #include "V3String.h"
 
+#include <algorithm>
+#include <memory>
+
 //######################################################################
 // V3OptionParser::Impl
 struct V3OptionParser::Impl {

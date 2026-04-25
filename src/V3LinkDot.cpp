@@ -74,6 +74,7 @@
 
 #include <algorithm>
 #include <map>
+#include <memory>
 #include <vector>
 
 VL_DEFINE_DEBUG_FUNCTIONS;
