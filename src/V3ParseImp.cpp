@@ -144,8 +144,11 @@ void V3ParseImp::lexVerilatorCmtLint(FileLine* fl, const char* textp, bool warnO
     // Use parsep()->lexFileline() as want to affect later FileLine's warnings
     if (!(parsep()->lexFileline()->warnOff(msg, warnOff))) {
         if (!v3Global.opt.isFuture(msg)) {
-            fl->v3error("Unknown verilator lint message code: '" << msg << "', in '" << textp
-                                                                 << "'");
+            // Patch (ttcodebot v4.228-playground): silently ignore unknown lint
+            // codes so Verilator-5-era directives like `lint_off WIDTHTRUNC`
+            // do not fail compilation in this 4.x fork.
+            // fl->v3error("Unknown verilator lint message code: '" << msg << "', in '" << textp
+            //                                                      << "'");
         }
     }
 }
@@ -159,7 +162,9 @@ void V3ParseImp::lexVerilatorCmtBad(FileLine* fl, const char* textp) {
     string cmtname;
     for (int i = 0; isalnum(cmtparse[i]); i++) { cmtname += cmtparse[i]; }
     if (!v3Global.opt.isFuture(cmtname)) {
-        fl->v3error("Unknown verilator comment: '" << textp << "'");
+        // Patch (ttcodebot v4.228-playground): silently ignore unknown verilator
+        // comments for Verilator-5 forward compatibility.
+        // fl->v3error("Unknown verilator comment: '" << textp << "'");
     }
 }
 
